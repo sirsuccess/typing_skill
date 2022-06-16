@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Autocomplete, TextField } from "@mui/material";
 
-const SelectComponent = ({ selectTime, setSelectTime }) => {
+const SelectComponent = ({ selectTime, setSelectTime,disabled }) => {
   const timeSelect = [1, 2, 5];
   return (
     <Autocomplete
@@ -9,7 +9,7 @@ const SelectComponent = ({ selectTime, setSelectTime }) => {
       variant="outlined"
       size="big"
       freeSolo
-      // disabled
+      disabled={disabled}
       min={1}
       value={selectTime}
       options={timeSelect}

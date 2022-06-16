@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { TextField } from "@mui/material";
 
 const TextArea = ({ id, label, typedText, action,  isDisable}) => {
