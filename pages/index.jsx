@@ -24,7 +24,6 @@ export default function Home() {
 
   // calculate accuracy, score and speed
   const calculateScore = () => {
-    alert("here");
     const typedText = document.getElementById("typeText").value;
     const paragraph = document.getElementById("paragraph").value;
     const typedTextArray = typedText.split(" ");
@@ -47,19 +46,23 @@ export default function Home() {
     if (!paragraph || selectTime < 1) {
       return;
     }
+    const timeoutId = setTimeout(() => {
+      setIsDisable(true);
+      calculateScore(typedText, paragraph);
+    }, selectTime * 60 * 1000);
+
     if (isStartTimer) {
       setUserScoreDetail({
         score: 0,
         accuracy: 0,
         speed: 0,
       });
-
-      setTimeout(() => {
-        setIsDisable(true);
-        calculateScore(typedText, paragraph);
-      }, selectTime * 60 * 1000);
       setIsStartTimer(false);
+      return;
     }
+    clearTimeout(timeoutId);
+    setIsStartTimer(true);
+    return;
   };
 
   return (
@@ -89,20 +92,31 @@ export default function Home() {
           disabled={!isStartTimer}
         />
 
-        <Button
-          variant="contained"
-          sx={{ mt: 2 }}
-          action={startTimer}
-          text={userScoreDetail.speed > 0 ? "Restart" : "start"}
-          disabled={!isStartTimer}
-        />
+        <div className="btn-sections">
+          {isStartTimer && (
+            <Button
+              variant="contained"
+              action={startTimer}
+              text={userScoreDetail.speed > 0 ? "Restart" : "start"}
+              disabled={!isStartTimer}
+            />
+          )}
+          {!isStartTimer && (
+            <Button
+              variant="outlined"
+              action={startTimer}
+              text="Stop"
+              color="error"
+            />
+          )}
+        </div>
 
         <TextArea
           id="typeText"
           label="Type text here"
           typedText={typedText}
           action={setTypedText}
-          isDisable={isDisable}
+          isDisable={isStartTimer}
         />
       </main>
 
@@ -135,6 +149,13 @@ export default function Home() {
 
         h1 {
           margin-buttom: 5rem;
+        }
+        .btn-section {
+          display: flex;
+          justify-content: space-between;
+          margin: 0 auto;
+          margin-top: 2rem;
+          width: 180px;
         }
 
         @media (max-width: 600px) {
