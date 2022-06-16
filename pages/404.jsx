@@ -4,7 +4,7 @@ export default function NotFound() {
   return (
     <div className="container">
       <main>
-        <h1 className="title">Page not found</h1>
+        <h1 className="text">Page not found</h1>
 
         <p className="description">
           Go back to <a href="/">home</a>
@@ -30,18 +30,7 @@ export default function NotFound() {
           align-items: center;
         }
 
-        .title a {
-          color: #0070f3;
-          text-decoration: none;
-        }
-
-        .title a:hover,
-        .title a:focus,
-        .title a:active {
-          text-decoration: underline;
-        }
-
-        .title {
+        .text {
           margin: 0;
           line-height: 1.15;
           font-size: 4rem;
@@ -53,7 +42,7 @@ export default function NotFound() {
         }
 
         @media (max-width: 600px) {
-          .title {
+          .text {
             font-size: 2rem;
           }
         }
